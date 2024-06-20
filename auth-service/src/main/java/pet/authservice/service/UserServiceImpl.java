@@ -1,6 +1,5 @@
 package pet.authservice.service;
 
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pet.authservice.exception.UserAlreadyExistException;
@@ -15,12 +14,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) throws UserAlreadyExistException {
-
-        return null;
+        if (isPresentByEmail(user.getEmail())) {
+            throw new UserAlreadyExistException(
+                    String.format("User with email {%s} already exist", user.getEmail()));
+        }
+        return userRepository.save(user);
     }
 
     @Override
-    public Optional<User> findByEmail(String email) throws UserNotFoundException {
-        return Optional.empty();
+    public User findByEmail(String email) throws UserNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(
+                String.format("User with email: {%s} not found", email)
+        ));
+    }
+
+    @Override
+    public boolean isPresentByEmail(String email) {
+        return userRepository.findByEmail(email).isPresent();
     }
 }

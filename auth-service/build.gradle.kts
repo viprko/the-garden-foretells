@@ -27,11 +27,14 @@ repositories {
 }
 
 dependencies {
+    implementation("org.liquibase:liquibase-core:4.28.0")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     implementation("io.jsonwebtoken:jjwt-api:0.12.5")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("jakarta.validation:jakarta.validation-api:3.1.0")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
