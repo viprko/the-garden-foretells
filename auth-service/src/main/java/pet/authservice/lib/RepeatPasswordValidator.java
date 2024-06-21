@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import pet.authservice.dto.UserRegistrationDto;
 
 @Component
-public class RepeatPasswordValidator implements ConstraintValidator<RepeatPasswordValidator,
+public class RepeatPasswordValidator implements ConstraintValidator<ValidRepeatPassword,
         UserRegistrationDto> {
 
     @Override

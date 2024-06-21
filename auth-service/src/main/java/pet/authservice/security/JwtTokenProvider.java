@@ -11,6 +11,7 @@ import java.util.Base64;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,9 @@ import pet.authservice.service.CustomUserDetailsService;
 @Component
 @AllArgsConstructor
 public class JwtTokenProvider {
+    @Value("${jwt.encoded-secret-key}")
     private String encodedKey;
+    @Value("${jwt.validity-in-milliseconds}")
     private Long validityInMilliseconds;
     private SecretKey secretKey;
     private final CustomUserDetailsService customUserDetailsService;

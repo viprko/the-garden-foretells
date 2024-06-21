@@ -1,6 +1,7 @@
 package pet.authservice.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import pet.authservice.exception.UserAlreadyExistException;
 import pet.authservice.exception.UserNotFoundException;
@@ -13,6 +14,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    @Modifying
     public User save(User user) throws UserAlreadyExistException {
         if (isPresentByEmail(user.getEmail())) {
             throw new UserAlreadyExistException(
