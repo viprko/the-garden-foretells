@@ -35,6 +35,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("jakarta.validation:jakarta.validation-api:3.1.0")
+    implementation("org.springdoc:springdoc-openapi-ui:1.8.0")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.mysql:mysql-connector-j:1.5.5.Final")
     annotationProcessor("org.projectlombok:lombok")

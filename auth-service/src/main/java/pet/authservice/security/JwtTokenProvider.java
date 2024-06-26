@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import pet.authservice.exception.InvalidJwtTokenAuthenticationException;
+import pet.authservice.model.User;
 import pet.authservice.service.CustomUserDetailsService;
 
 @Component
@@ -35,11 +36,11 @@ public class JwtTokenProvider {
         this.secretKey = Keys.hmacShaKeyFor(decodedKey);
     }
 
-    public String createToken(String email, String role, Long userId) {
+    public String createToken(User user) {
         Claims claims = Jwts.claims()
-                .subject(email)
-                .add("role", role)
-                .add("userId", userId)
+                .subject(user.getEmail())
+                .add("role", user.getRole())
+                .add("userId", user.getId())
                 .build();
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
