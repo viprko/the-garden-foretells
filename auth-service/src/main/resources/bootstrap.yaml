@@ -5,3 +5,8 @@ spring:
       name: auth-service
       profile: default
       label: main
+  application:
+    name: auth-service
+logging:
+  level:
+    org.springframework.cloud.config: DEBUG

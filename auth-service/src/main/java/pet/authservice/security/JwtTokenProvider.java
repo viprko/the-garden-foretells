@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
 import javax.crypto.SecretKey;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,14 +20,17 @@ import pet.authservice.model.User;
 import pet.authservice.service.CustomUserDetailsService;
 
 @Component
-@AllArgsConstructor
 public class JwtTokenProvider {
+    private final CustomUserDetailsService customUserDetailsService;
     @Value("${jwt.encoded-secret-key}")
     private String encodedKey;
     @Value("${jwt.validity-in-milliseconds}")
     private Long validityInMilliseconds;
     private SecretKey secretKey;
-    private final CustomUserDetailsService customUserDetailsService;
+
+    public JwtTokenProvider(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     @PostConstruct
     protected void init() {
