@@ -35,6 +35,7 @@ public class JwtTokenProvider {
     @PostConstruct
     protected void init() {
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
+        String stringKey = new String(decodedKey);
         this.secretKey = Keys.hmacShaKeyFor(decodedKey);
     }
 
