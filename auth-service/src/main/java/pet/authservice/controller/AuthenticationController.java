@@ -5,6 +5,7 @@ import java.util.Map;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -36,5 +37,10 @@ public class AuthenticationController {
         User user = authenticationService.login(userMapper.toEntity(userLoginDto));
         String token = jwtTokenProvider.createToken(user);
         return new ResponseEntity<>(Map.of("token", token), HttpStatus.OK);
+    }
+
+    @GetMapping("/health-check")
+    public ResponseEntity<String> healthCheck () {
+        return new ResponseEntity<>("Auth service is up", HttpStatus.OK);
     }
 }
