@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: file:///D:/projects/config-servers/pet.the-garden-foretells-config
+          uri: file:///D:/projects/2. config-servers/pet.the-garden-foretells-config
           default-label: main
           skipSslValidation: true
 

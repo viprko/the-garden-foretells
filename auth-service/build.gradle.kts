@@ -29,6 +29,7 @@ repositories {
 dependencies {
     implementation("org.liquibase:liquibase-core:4.28.0")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     implementation("io.jsonwebtoken:jjwt-api:0.12.5")
