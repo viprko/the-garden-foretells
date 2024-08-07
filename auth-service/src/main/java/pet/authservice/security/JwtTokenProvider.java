@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
 import javax.crypto.SecretKey;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,24 +21,12 @@ import pet.authservice.model.User;
 import pet.authservice.service.CustomUserDetailsService;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
     private final CustomUserDetailsService customUserDetailsService;
-    @Value("${jwt.encoded-secret-key}")
-    private String encodedKey;
+    private final KeyProvider keyProvider;
     @Value("${jwt.validity-in-milliseconds}")
     private Long validityInMilliseconds;
-    private SecretKey secretKey;
-
-    public JwtTokenProvider(CustomUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
-    }
-
-    @PostConstruct
-    protected void init() {
-        byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
-        String stringKey = new String(decodedKey);
-        this.secretKey = Keys.hmacShaKeyFor(decodedKey);
-    }
 
     public String createToken(User user) {
         Claims claims = Jwts.claims()
@@ -51,7 +40,7 @@ public class JwtTokenProvider {
                 .claims(claims)
                 .issuedAt(now)
                 .expiration(validity)
-                .signWith(secretKey, Jwts.SIG.HS256)
+                .signWith(keyProvider.getPrivateKey())
                 .compact();
     }
 
@@ -62,7 +51,8 @@ public class JwtTokenProvider {
     }
 
     public String getUsername(String token) {
-        return Jwts.parser().decryptWith(secretKey).build().parseSignedClaims(token).getPayload()
+        return Jwts.parser().decryptWith(keyProvider.getPrivateKey()).build()
+                .parseSignedClaims(token).getPayload()
                 .getSubject();
     }
 
@@ -77,7 +67,8 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claimsJws =
-                    Jwts.parser().decryptWith(secretKey).build().parseSignedClaims(token);
+                    Jwts.parser().decryptWith(keyProvider.getPrivateKey()).build()
+                            .parseSignedClaims(token);
             return !claimsJws.getPayload().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtTokenAuthenticationException("Expired or invalid JWT token", e);
