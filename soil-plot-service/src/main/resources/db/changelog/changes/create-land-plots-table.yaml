@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: viprko
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: land_plots
+      changes:
+        - createTable:
+            tableName: land_plots
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vertices
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: area
+                  type: float
