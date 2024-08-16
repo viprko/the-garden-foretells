@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: soil-plot-service
+      profile: default
+      label: main
+  application:
+    name: soil-plot-service
+
+public:
+  key:
+    url: http://localhost:8765/auth-service/public-key
