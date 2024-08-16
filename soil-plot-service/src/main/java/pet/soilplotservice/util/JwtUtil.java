@@ -20,7 +20,7 @@ public class JwtUtil {
     private final AtomicReference<PublicKey> publicKey;
     private final RestTemplate restTemplate;
     @Value("${public.key.url}")
-    private final String publicKeyUrl;
+    private String publicKeyUrl;
 
     @PostConstruct
     public void init() {

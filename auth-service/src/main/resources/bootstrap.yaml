@@ -39,7 +39,3 @@ springdoc:
     path: /auth-service/swagger-ui.html
     enabled: true
 
-
-server:
-  servlet:
-    context-path: /

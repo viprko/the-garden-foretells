@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) ->
                         auth.anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(withDefaults())
+                .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(
                         (sm) -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .with(jwtConfigurator, withDefaults());

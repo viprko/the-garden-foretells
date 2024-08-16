@@ -7,3 +7,7 @@ spring:
       label: main
   application:
     name: soil-plot-service
+
+public:
+  key:
+    url: http://localhost:8765/auth-service/public-key
