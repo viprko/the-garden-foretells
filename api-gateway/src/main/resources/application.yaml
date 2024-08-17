@@ -7,13 +7,13 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      globalcors:
-        cors-configurations:
-          "[/**]":
-            allowedOriginPatterns: "http://localhost:*"
-            allowedMethods: "*"
-            allowedHeaders: "*"
-            allowCredentials: true
+  globalcors:
+    cors-configurations:
+      "[/**]":
+        allowedOriginPatterns: "*"
+        allowedMethods: "*"
+        allowedHeaders: "*"
+        allowCredentials: true
 
 eureka:
   client:
