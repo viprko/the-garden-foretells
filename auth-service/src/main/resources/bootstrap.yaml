@@ -8,34 +8,18 @@ spring:
   application:
     name: auth-service
 
-logging:
-  level:
-    org:
-      springframework:
-        cloud:
-          config: DEBUG
-        web: DEBUG
-      springdoc:
-        api: DEBUG
-        core: DEBUG
-        ui: DEBUG
-  io:
-    swagger:
-      v3:
-        oas:
-          models: DEBUG
-          request: DEBUG
-
 openApi:
   service:
     title: auth-service
     version: 0.1
-    url: localhost:8765
+    url: http://localhost:8765/auth-service
 springdoc:
   api-docs:
-    path: /auth-service/v3/api-docs
+    path: /v3/api-docs
     enabled: true
   swagger-ui:
-    path: /auth-service/swagger-ui.html
+    path: /swagger-ui.html
+    configUrl: http://localhost:8765/auth-service/v3/api-docs/swagger-config
+    url: http://localhost:8765/auth-service/v3/api-docs
+    urls: []
     enabled: true
-
