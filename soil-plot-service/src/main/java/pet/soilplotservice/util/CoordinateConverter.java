@@ -29,8 +29,9 @@ public class CoordinateConverter implements AttributeConverter<List<Coordinate>,
     @Override
     public List<Coordinate> convertToEntityAttribute(String s) {
         try {
-            return objectMapper.readValue(s, new TypeReference<List<Coordinate>>() {});
-        }catch (Exception e) {
+            return objectMapper.readValue(s, new TypeReference<List<Coordinate>>() {
+            });
+        } catch (Exception e) {
             throw new CoordinateConverterException("Failed to convert JSON to list of "
                     + "coordinates", e);
         }

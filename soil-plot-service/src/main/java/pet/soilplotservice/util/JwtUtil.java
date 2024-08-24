@@ -17,6 +17,7 @@ import pet.soilplotservice.exception.PublicKeyGeneratorException;
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
+    private static final String USER_ID_CLAIM_NAME = "userId";
     private final AtomicReference<PublicKey> publicKey;
     private final RestTemplate restTemplate;
     @Value("${public.key.url}")
@@ -47,7 +48,7 @@ public class JwtUtil {
     }
 
     public String extractUserId(String token) {
-        return (String) extractAllClaims(token).get("userId");
+        return (String) extractAllClaims(token).get(USER_ID_CLAIM_NAME);
     }
 
     private void fetchPublicKey() {
@@ -71,5 +72,9 @@ public class JwtUtil {
                 .verifyWith(publicKey.get()).build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    private String getUserIdFromToken(String token) {
+        return (String) extractAllClaims(token).get("userId");
     }
 }

@@ -23,4 +23,5 @@ public class LandPlot {
     @Convert(converter = CoordinateConverter.class)
     private List<Coordinate> vertices;
     private Double area;
+    private boolean hasImage;
 }

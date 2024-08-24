@@ -1,31 +1,48 @@
 package pet.soilplotservice.service;
 
+import jakarta.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pet.soilplotservice.exception.InvalidLandPlotFormException;
 import pet.soilplotservice.exception.LandPlotNotFoundException;
 import pet.soilplotservice.model.Coordinate;
 import pet.soilplotservice.model.LandPlot;
 import pet.soilplotservice.repository.LandPlotRepository;
+import pet.soilplotservice.util.JwtUtil;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LandPlotServiceImpl implements LandPlotService {
     private final LandPlotFormValidationService landPlotFormValidationService;
     private final LandPlotRepository landPlotRepository;
+    private final LandPlotImageService landPlotImageService;
 
     @Override
-    public LandPlot save(LandPlot landPlot) {
+    @Transactional
+    public LandPlot save(LandPlot landPlot, String userId) {
         if (landPlotFormValidationService.isFormValid(landPlot)) {
             throw new InvalidLandPlotFormException("Invalid land plot form. Check the entered "
                     + "coordinates");
         }
         landPlot.setArea(calculateArea(landPlot.getVertices()));
+        try {
+            landPlotImageService.saveImageFile(landPlot);
+            landPlot.setHasImage(true);
+        } catch (IOException e) {
+            log.error("Failed to save image for LandPlot with id: {}",
+                    landPlot.getId(), e);
+            landPlot.setHasImage(false);
+        }
+        landPlot.setUserId(userId);
         return landPlotRepository.save(landPlot);
     }
 
     @Override
+    @Transactional
     public LandPlot update(Long id, LandPlot landPlot) {
         LandPlot landPlotFromDb = findById(id);
         landPlotFromDb.setVertices(landPlot.getVertices());
@@ -33,6 +50,7 @@ public class LandPlotServiceImpl implements LandPlotService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         landPlotRepository.delete(findById(id));
     }
