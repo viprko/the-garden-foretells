@@ -1,5 +1,6 @@
 package pet.soilplotservice.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class LandPlotController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public LandPlotResponseDto save(@RequestBody LandPlotRequestDto landPlotRequestDto,
-                                    @UserId String userId) {
+                                    @Parameter(hidden = true) @UserId String userId) {
         return landPlotMapper.toDto(
                 landPlotService.save(landPlotMapper.toEntity(landPlotRequestDto), userId));
     }

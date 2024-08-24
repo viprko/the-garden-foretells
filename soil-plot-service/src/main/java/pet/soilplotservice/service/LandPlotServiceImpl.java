@@ -24,11 +24,10 @@ public class LandPlotServiceImpl implements LandPlotService {
     @Override
     @Transactional
     public LandPlot save(LandPlot landPlot, String userId) {
-        if (landPlotFormValidationService.isFormValid(landPlot)) {
+        if (!landPlotFormValidationService.isFormValid(landPlot)) {
             throw new InvalidLandPlotFormException("Invalid land plot form. Check the entered "
                     + "coordinates");
         }
-        landPlot.setArea(calculateArea(landPlot.getVertices()));
         try {
             landPlotImageService.saveImageFile(landPlot);
             landPlot.setHasImage(true);
@@ -37,6 +36,7 @@ public class LandPlotServiceImpl implements LandPlotService {
                     landPlot.getId(), e);
             landPlot.setHasImage(false);
         }
+        landPlot.setArea(calculateArea(landPlot.getVertices()));
         landPlot.setUserId(userId);
         return landPlotRepository.save(landPlot);
     }
@@ -46,7 +46,7 @@ public class LandPlotServiceImpl implements LandPlotService {
     public LandPlot update(Long id, LandPlot landPlot) {
         LandPlot landPlotFromDb = findById(id);
         landPlotFromDb.setVertices(landPlot.getVertices());
-        return save(landPlotFromDb);
+        return landPlotRepository.save(landPlotFromDb);
     }
 
     @Override

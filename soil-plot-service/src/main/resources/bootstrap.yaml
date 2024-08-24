@@ -11,3 +11,19 @@ spring:
 public:
   key:
     url: http://localhost:8765/auth-service/public-key
+
+openApi:
+  service:
+    title: soil-plot-service
+    version: 0.1
+    url: http://localhost:8765/soil-plot-service
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    configUrl: http://localhost:8765/soil-plot-service/v3/api-docs/swagger-config
+    url: http://localhost:8765/soil-plot-service/v3/api-docs
+    urls: []
+    enabled: true

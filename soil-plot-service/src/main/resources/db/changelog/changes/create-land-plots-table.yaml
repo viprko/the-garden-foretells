@@ -31,3 +31,6 @@ databaseChangeLog:
               - column:
                   name: area
                   type: float
+              - column:
+                  name: has_image
+                  type: boolean
