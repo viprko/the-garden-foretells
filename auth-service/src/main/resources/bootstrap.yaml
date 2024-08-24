@@ -7,6 +7,11 @@ spring:
       label: main
   application:
     name: auth-service
+  jpa:
+    properties:
+      hibernate:
+        type:
+          preferred_uuid_jdbc_type: CHAR
 
 openApi:
   service:
@@ -23,3 +28,4 @@ springdoc:
     url: http://localhost:8765/auth-service/v3/api-docs
     urls: []
     enabled: true
+
