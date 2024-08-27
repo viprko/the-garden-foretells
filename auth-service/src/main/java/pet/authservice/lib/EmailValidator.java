@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
-    @Value("${validation.email.regex")
+    @Value("${validation.email.regex}")
     private String emailValidationRegex;
 
     @Override

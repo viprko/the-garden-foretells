@@ -13,6 +13,14 @@ spring:
         type:
           preferred_uuid_jdbc_type: CHAR
 
+logging:
+  level:
+    org:
+      springframework:
+        cloud: DEBUG
+        web: DEBUG
+        security: DEBUG
+
 openApi:
   service:
     title: auth-service
