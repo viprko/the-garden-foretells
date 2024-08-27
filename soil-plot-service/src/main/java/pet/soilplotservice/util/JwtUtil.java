@@ -48,7 +48,7 @@ public class JwtUtil {
     }
 
     public String extractUserId(String token) {
-        return (String) extractAllClaims(token).get(USER_ID_CLAIM_NAME);
+        return extractAllClaims(token).get(USER_ID_CLAIM_NAME, String.class);
     }
 
     private void fetchPublicKey() {
@@ -72,9 +72,5 @@ public class JwtUtil {
                 .verifyWith(publicKey.get()).build()
                 .parseSignedClaims(token)
                 .getPayload();
-    }
-
-    private String getUserIdFromToken(String token) {
-        return (String) extractAllClaims(token).get("userId");
     }
 }

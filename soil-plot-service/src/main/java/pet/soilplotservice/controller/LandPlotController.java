@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ public class LandPlotController {
     private final LandPlotService landPlotService;
     private final LandPlotMapper landPlotMapper;
 
-    @GetMapping("/${id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public LandPlotResponseDto findById(@PathVariable("id") Long id) {
         return landPlotMapper.toDto(landPlotService.findById(id));
@@ -47,7 +48,7 @@ public class LandPlotController {
                 landPlotService.save(landPlotMapper.toEntity(landPlotRequestDto), userId));
     }
 
-    @PutMapping("/${id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public LandPlotResponseDto update(@RequestBody LandPlotRequestDto landPlotRequestDto,
                                       @PathVariable("id") Long id) {
@@ -55,9 +56,14 @@ public class LandPlotController {
                 landPlotMapper.toEntity(landPlotRequestDto)));
     }
 
-    @DeleteMapping("/${id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") Long id) {
         landPlotService.delete(id);
+    }
+
+    @GetMapping("/health-check")
+    public ResponseEntity<String> healthCheck () {
+        return new ResponseEntity<>("Auth service is up", HttpStatus.OK);
     }
 }

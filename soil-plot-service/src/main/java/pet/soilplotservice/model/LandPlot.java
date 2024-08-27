@@ -1,5 +1,6 @@
 package pet.soilplotservice.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,5 +24,6 @@ public class LandPlot {
     @Convert(converter = CoordinateConverter.class)
     private List<Coordinate> vertices;
     private Double area;
+    @Column(name = "has_image")
     private boolean hasImage;
 }

@@ -32,7 +32,7 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims()
                 .subject(user.getEmail())
                 .add("role", user.getRole())
-                .add("userId", user.getId())
+                .add("userId", user.getId().toString())
                 .build();
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
