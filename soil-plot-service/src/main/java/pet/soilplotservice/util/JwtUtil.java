@@ -7,9 +7,13 @@ import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pet.soilplotservice.exception.PublicKeyGeneratorException;
@@ -18,6 +22,7 @@ import pet.soilplotservice.exception.PublicKeyGeneratorException;
 @RequiredArgsConstructor
 public class JwtUtil {
     private static final String USER_ID_CLAIM_NAME = "userId";
+    private static final String USER_AUTHORITIES_CLAIM_NAME = "role";
     private final AtomicReference<PublicKey> publicKey;
     private final RestTemplate restTemplate;
     @Value("${public.key.url}")
@@ -49,6 +54,11 @@ public class JwtUtil {
 
     public String extractUserId(String token) {
         return extractAllClaims(token).get(USER_ID_CLAIM_NAME, String.class);
+    }
+
+    public List<GrantedAuthority> extractAuthorities(String token) {
+        String role = extractAllClaims(token).get(USER_AUTHORITIES_CLAIM_NAME, String.class);
+        return role != null ? List.of(new SimpleGrantedAuthority(role)) : Collections.emptyList();
     }
 
     private void fetchPublicKey() {

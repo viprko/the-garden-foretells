@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.List;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import pet.soilplotservice.util.CoordinateConverter;
@@ -20,7 +21,7 @@ public class LandPlot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String userId;
+    private UUID userId;
     @Convert(converter = CoordinateConverter.class)
     private List<Coordinate> vertices;
     private Double area;

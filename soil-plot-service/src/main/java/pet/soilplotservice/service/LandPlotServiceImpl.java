@@ -3,6 +3,7 @@ package pet.soilplotservice.service;
 import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import pet.soilplotservice.exception.LandPlotNotFoundException;
 import pet.soilplotservice.model.Coordinate;
 import pet.soilplotservice.model.LandPlot;
 import pet.soilplotservice.repository.LandPlotRepository;
-import pet.soilplotservice.util.JwtUtil;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class LandPlotServiceImpl implements LandPlotService {
 
     @Override
     @Transactional
-    public LandPlot save(LandPlot landPlot, String userId) {
+    public LandPlot save(LandPlot landPlot, UUID userId) {
         if (!landPlotFormValidationService.isFormValid(landPlot)) {
             throw new InvalidLandPlotFormException("Invalid land plot form. Check the entered "
                     + "coordinates");
@@ -62,13 +62,13 @@ public class LandPlotServiceImpl implements LandPlotService {
     }
 
     @Override
-    public List<LandPlot> findAllByUser(String userId) {
+    public List<LandPlot> findAllByUser(UUID userId) {
         return landPlotRepository.findAllByUser(userId);
     }
 
     private double calculateArea(List<Coordinate> vertices) {
         double area = 0;
-        for (int i = 0; i < vertices.size(); i++) {
+        for (int i = 0; i < vertices.size() - 1; i++) {
             area += vertices.get(i).getX() * vertices.get(i + 1).getY();
             area += vertices.get(i).getY() * vertices.get(i + 1).getX();
         }

@@ -7,6 +7,11 @@ spring:
       label: main
   application:
     name: soil-plot-service
+  jpa:
+    properties:
+      hibernate:
+        type:
+          preferred_uuid_jdbc_type: CHAR
 
 public:
   key:

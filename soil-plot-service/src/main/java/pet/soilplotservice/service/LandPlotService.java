@@ -1,10 +1,11 @@
 package pet.soilplotservice.service;
 
 import java.util.List;
+import java.util.UUID;
 import pet.soilplotservice.model.LandPlot;
 
 public interface LandPlotService {
-    LandPlot save(LandPlot landPlot, String userId);
+    LandPlot save(LandPlot landPlot, UUID userId);
 
     LandPlot update(Long id, LandPlot landPlot);
 
@@ -12,5 +13,5 @@ public interface LandPlotService {
 
     LandPlot findById(Long id);
 
-    List<LandPlot> findAllByUser(String userId);
+    List<LandPlot> findAllByUser(UUID userId);
 }
