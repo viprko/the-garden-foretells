@@ -46,7 +46,7 @@ public class LandPlotImageServiceImpl implements LandPlotImageService {
     }
 
     private String generateImageName(Long landPlotId) {
-        return String.format("%d:id-landplot", landPlotId);
+        return String.format("%d:id-landplot.png", landPlotId);
     }
 
 }

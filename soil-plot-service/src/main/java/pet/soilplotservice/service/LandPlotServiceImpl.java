@@ -28,17 +28,18 @@ public class LandPlotServiceImpl implements LandPlotService {
             throw new InvalidLandPlotFormException("Invalid land plot form. Check the entered "
                     + "coordinates");
         }
+        landPlot.setArea(calculateArea(landPlot.getVertices()));
+        landPlot.setUserId(userId);
+        LandPlot savedLandPlot = landPlotRepository.save(landPlot);
         try {
-            landPlotImageService.saveImageFile(landPlot);
-            landPlot.setHasImage(true);
+            landPlotImageService.saveImageFile(savedLandPlot);
+            savedLandPlot.setHasImage(true);
         } catch (IOException e) {
             log.error("Failed to save image for LandPlot with id: {}",
                     landPlot.getId(), e);
-            landPlot.setHasImage(false);
+            savedLandPlot.setHasImage(false);
         }
-        landPlot.setArea(calculateArea(landPlot.getVertices()));
-        landPlot.setUserId(userId);
-        return landPlotRepository.save(landPlot);
+        return landPlotRepository.save(savedLandPlot);
     }
 
     @Override
