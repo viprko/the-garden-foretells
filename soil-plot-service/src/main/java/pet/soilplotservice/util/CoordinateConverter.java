@@ -21,7 +21,7 @@ public class CoordinateConverter implements AttributeConverter<List<Coordinate>,
         try {
             return objectMapper.writeValueAsString(coordinates);
         } catch (Exception e) {
-            throw new CoordinateConverterException("Failed to convert list of coordinates to "
+            throw new CoordinateConverterException("Failed to convert lis of coordinates to "
                     + "JSON", e);
         }
     }

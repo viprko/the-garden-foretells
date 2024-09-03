@@ -22,9 +22,8 @@ public class LandPlot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private UUID userId;
+    private String title;
     @Convert(converter = CoordinateConverter.class)
     private List<Coordinate> vertices;
     private Double area;
-    @Column(name = "has_image")
-    private boolean hasImage;
 }

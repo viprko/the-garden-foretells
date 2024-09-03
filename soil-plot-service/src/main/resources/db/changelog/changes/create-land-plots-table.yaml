@@ -24,6 +24,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: title
+                  type: varchar(255)
+              - column:
                   name: vertices
                   type: varchar(255)
                   constraints:
@@ -31,6 +34,3 @@ databaseChangeLog:
               - column:
                   name: area
                   type: float
-              - column:
-                  name: has_image
-                  type: bit

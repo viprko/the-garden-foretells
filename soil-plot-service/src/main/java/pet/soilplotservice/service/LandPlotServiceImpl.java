@@ -19,7 +19,6 @@ import pet.soilplotservice.repository.LandPlotRepository;
 public class LandPlotServiceImpl implements LandPlotService {
     private final LandPlotFormValidationService landPlotFormValidationService;
     private final LandPlotRepository landPlotRepository;
-    private final LandPlotImageService landPlotImageService;
 
     @Override
     @Transactional
@@ -31,14 +30,6 @@ public class LandPlotServiceImpl implements LandPlotService {
         landPlot.setArea(calculateArea(landPlot.getVertices()));
         landPlot.setUserId(userId);
         LandPlot savedLandPlot = landPlotRepository.save(landPlot);
-        try {
-            landPlotImageService.saveImageFile(savedLandPlot);
-            savedLandPlot.setHasImage(true);
-        } catch (IOException e) {
-            log.error("Failed to save image for LandPlot with id: {}",
-                    landPlot.getId(), e);
-            savedLandPlot.setHasImage(false);
-        }
         return landPlotRepository.save(savedLandPlot);
     }
 
