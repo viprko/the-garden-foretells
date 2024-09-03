@@ -9,5 +9,4 @@ public class LandPlotResponseDto {
     private Long id;
     private List<Coordinate> vertices;
     private Double area;
-    private boolean hasImage;
 }

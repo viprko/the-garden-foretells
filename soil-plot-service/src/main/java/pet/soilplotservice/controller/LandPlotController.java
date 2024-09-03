@@ -1,5 +1,6 @@
 package pet.soilplotservice.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import java.util.List;
 import java.util.UUID;
@@ -28,13 +29,16 @@ public class LandPlotController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Find land plots by its id")
     public LandPlotResponseDto findById(@PathVariable("id") Long id) {
         return landPlotMapper.toDto(landPlotService.findById(id));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<LandPlotResponseDto> findAllByUser(@InjectUserId UUID userId) {
+    @Operation(summary = "Find all land plots by User")
+    public List<LandPlotResponseDto> findAllByUser(
+            @Parameter(hidden = true) @InjectUserId UUID userId) {
         return landPlotService.findAllByUser(userId)
                 .stream()
                 .map(landPlotMapper::toDto)
@@ -43,6 +47,7 @@ public class LandPlotController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create a new land plot")
     public LandPlotResponseDto save(@RequestBody LandPlotRequestDto landPlotRequestDto,
                                     @Parameter(hidden = true)
                                     @InjectUserId UUID userId) {
@@ -52,6 +57,7 @@ public class LandPlotController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Update the existed land plot by its id")
     public LandPlotResponseDto update(@RequestBody LandPlotRequestDto landPlotRequestDto,
                                       @PathVariable("id") Long id) {
         return landPlotMapper.toDto(landPlotService.update(id,
@@ -60,6 +66,7 @@ public class LandPlotController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Delete the existed land plot by its id")
     public void delete(@PathVariable("id") Long id) {
         landPlotService.delete(id);
     }
