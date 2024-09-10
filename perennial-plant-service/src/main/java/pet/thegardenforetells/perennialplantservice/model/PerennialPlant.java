@@ -1,32 +1,28 @@
 package pet.thegardenforetells.perennialplantservice.model;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.MappedSuperclass;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import pet.thegardenforetells.perennialplantservice.model.timeinterval.TimeInterval;
 
-@Entity
-@Table(name = "perennial_plants")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class PerennialPlant {
+@MappedSuperclass
+public abstract class PerennialPlant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String personalTitle;
     private UUID userId;
     private Coordinate position;
-    private Type type;
-
-    public enum Type {
-        TREE,
-        BUSH
-    }
+    private LocalDate plantedIn;
+    private Short age;
+    private Float wateringLevel;
+    private List<LocalDate> wateringDates;
+    private boolean isFertilized;
+    private Map<TimeInterval, String> fertilizingAdvice;
+    private List<LocalDate> fertilizingDates;
 }

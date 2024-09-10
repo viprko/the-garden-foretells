@@ -8,5 +8,4 @@ import pet.thegardenforetells.perennialplantservice.model.PerennialPlant;
 public class PerennialPlantResponseDto {
     private Long id;
     private Coordinate position;
-    private PerennialPlant.Type type;
 }

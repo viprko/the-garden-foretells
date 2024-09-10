@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pet.thegardenforetells.perennialplantservice.dto.PerennialPlantResponseDto;
 
 @RestController
 @RequestMapping("/plants/perennial")
@@ -11,7 +12,6 @@ public class PerennialPlantController {
 
     @GetMapping("/{id}")
     public PerennialPlantResponseDto findById(@PathVariable("id") Long id) {
-        return
+        return null;
     }
-
 }
