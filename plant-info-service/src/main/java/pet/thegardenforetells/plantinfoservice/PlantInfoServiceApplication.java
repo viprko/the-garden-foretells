@@ -10,7 +10,5 @@ import pet.thegardenforetells.plantinfoservice.model.Tree;
 public class PlantInfoServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(PlantInfoServiceApplication.class, args);
-        Tree tree = new Tree();
-
     }
 }

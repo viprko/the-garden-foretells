@@ -27,6 +27,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":shared"))
     implementation("org.liquibase:liquibase-core:4.28.0")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.mapstruct:mapstruct:1.5.5.Final")

@@ -14,7 +14,6 @@ public class TreeResponseDto {
     private Float temperatureMaxC;
     private Float minHeightCm;
     private Float maxHeightCm;
-    private List<String> soilTypes;
     private boolean requireCrossPollination;
     private boolean provideFruit;
     private Tree.TreeType treeType;

@@ -18,7 +18,7 @@ public abstract class Plant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private Long id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
     private String family;
     private String description;
@@ -26,5 +26,4 @@ public abstract class Plant {
     private Float temperatureMaxC;
     private Float minHeightCm;
     private Float maxHeightCm;
-    private List<String> soilTypes;
 }

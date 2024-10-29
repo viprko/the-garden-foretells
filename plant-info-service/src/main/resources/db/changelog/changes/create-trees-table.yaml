@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: viprko
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: trees
+      changes:
+        - createTable:
+            tableName: trees
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: family
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: temperatureMinC
+                  type: float
+              - column:
+                  name: temperatureMaxC
+                  type: float
+              - column:
+                  name: minHeightCm
+                  type: float
+              - column:
+                  name: maxHeightCm
+                  type: float
+              - column:
+                  name: requireCrossPollination
+                  type: TINYINT(1)
+              - column:
+                  name: treeType
+                  type: VARCHAR(64)
+

@@ -1,6 +1,7 @@
 package pet.thegardenforetells.plantinfoservice.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,14 +10,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pet.thegardenforetells.shared.util.JwtAuthFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final static String ADMIN_ROLE = "ADMIN";
-    private final static String MANAGER_ROLE = "MANAGER";
-    private final static String CLIENT_ROLE = "CLIENT";
+    @Value("${auth.roles.admin:admin}")
+    private String ADMIN_ROLE;
+    @Value("${auth.roles.manager:manger}")
+    private String MANAGER_ROLE;
+    @Value("${auth.roles.client:client}")
+    private String CLIENT_ROLE;
+    private final JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -35,5 +41,6 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        return httpSecurity.build();
     }
 }

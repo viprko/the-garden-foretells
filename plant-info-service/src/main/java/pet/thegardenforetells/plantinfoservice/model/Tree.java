@@ -1,6 +1,7 @@
 package pet.thegardenforetells.plantinfoservice.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class Tree extends Plant {
     private boolean requireCrossPollination;
-    private boolean provideFruit;
+    @Enumerated
     private TreeType treeType;
 
     public enum TreeType {

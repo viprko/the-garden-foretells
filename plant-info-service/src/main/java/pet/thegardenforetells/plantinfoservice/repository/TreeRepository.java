@@ -6,5 +6,4 @@ import pet.thegardenforetells.plantinfoservice.model.Tree;
 
 @Repository
 public interface TreeRepository extends JpaRepository<Tree, Long> {
-
 }

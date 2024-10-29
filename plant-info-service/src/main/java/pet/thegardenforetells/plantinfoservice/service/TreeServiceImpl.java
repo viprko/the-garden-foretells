@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pet.thegardenforetells.plantinfoservice.exception.TreeNotFoundException;
 import pet.thegardenforetells.plantinfoservice.model.Tree;
@@ -32,7 +34,9 @@ public class TreeServiceImpl implements TreeService {
 
     @Override
     public List<Tree> findBy(Tree tree) {
-        return List.of();
+        Example<Tree> example = Example.of(tree);
+        return treeRepository.findBy(example, query ->
+                query.sortBy(Sort.by("id")).all());
     }
 
     @Override
@@ -47,7 +51,6 @@ public class TreeServiceImpl implements TreeService {
         Optional.ofNullable(tree.getName()).ifPresent(savedTree::setName);
         Optional.ofNullable(tree.getMaxHeightCm()).ifPresent(savedTree::setMaxHeightCm);
         Optional.ofNullable(tree.getMinHeightCm()).ifPresent(savedTree::setMinHeightCm);
-        Optional.ofNullable(tree.getSoilTypes()).ifPresent(savedTree::setSoilTypes);
         Optional.ofNullable(tree.getTemperatureMaxC()).ifPresent(savedTree::setTemperatureMaxC);
         Optional.ofNullable(tree.getTemperatureMinC()).ifPresent(savedTree::setTemperatureMinC);
         return treeRepository.save(savedTree);
@@ -56,6 +59,6 @@ public class TreeServiceImpl implements TreeService {
     @Override
     @Transactional
     public void deleteById(Long id) {
-
+        treeRepository.deleteById(id);
     }
 }
