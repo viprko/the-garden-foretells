@@ -18,15 +18,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pet.thegardenforetells.shared.exception.PublicKeyGeneratorException;
 
-@Component
 @RequiredArgsConstructor
 public class JwtUtil {
-    @Value("${shared.jwt-util.claims.user-id:userId}")
-    private String userIdClaimName;
-    @Value("${shared.jwt-util.claims.role:role}")
-    private String userAuthoritiesClaimName;
-    @Value("${shared.jwt-util.public-key-url}")
-    private String publicKeyUrl;
+    private final String userIdClaimName;
+    private final String userAuthoritiesClaimName;
+    private final String publicKeyUrl;
     private final AtomicReference<PublicKey> publicKey;
     private final RestTemplate restTemplate;
 
