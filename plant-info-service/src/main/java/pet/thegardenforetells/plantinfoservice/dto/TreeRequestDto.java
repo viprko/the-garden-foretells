@@ -14,6 +14,5 @@ public class TreeRequestDto {
     private Float minHeightCm;
     private Float maxHeightCm;
     private boolean requireCrossPollination;
-    private boolean provideFruit;
     private Tree.TreeType treeType;
 }

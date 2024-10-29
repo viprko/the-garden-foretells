@@ -30,21 +30,21 @@ databaseChangeLog:
                   name: description
                   type: varchar(255)
               - column:
-                  name: temperatureMinC
+                  name: temperature_min_c
                   type: float
               - column:
-                  name: temperatureMaxC
+                  name: temperature_max_c
                   type: float
               - column:
-                  name: minHeightCm
+                  name: min_height_cm
                   type: float
               - column:
-                  name: maxHeightCm
+                  name: max_height_cm
                   type: float
               - column:
-                  name: requireCrossPollination
+                  name: require_cross_pollination
                   type: TINYINT(1)
               - column:
-                  name: treeType
+                  name: tree_type
                   type: VARCHAR(64)
 

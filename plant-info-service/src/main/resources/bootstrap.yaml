@@ -10,9 +10,9 @@ spring:
 
 openApi:
   service:
-    title: soil-plot-service
+    title: plant-info-service
     version: 0.1
-    url: http://localhost:8765/soil-plot-service
+    url: http://localhost:8765/plant-info-service
 
 springdoc:
   api-docs:

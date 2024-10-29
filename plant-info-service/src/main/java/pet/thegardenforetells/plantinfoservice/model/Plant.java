@@ -22,8 +22,12 @@ public abstract class Plant {
     private String name;
     private String family;
     private String description;
+    @Column(name = "temperature_min_c")
     private Float temperatureMinC;
+    @Column(name = "temperature_max_c")
     private Float temperatureMaxC;
+    @Column(name = "min_height_c")
     private Float minHeightCm;
+    @Column(name = "max_height_c")
     private Float maxHeightCm;
 }
