@@ -31,12 +31,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) ->
                         auth
+                                .requestMatchers("/health-check",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui",
+                                        "/v3/**").permitAll()
                                 .requestMatchers(HttpMethod.GET)
-                                    .hasAnyRole(CLIENT_ROLE, MANAGER_ROLE, ADMIN_ROLE)
+                                .hasAnyRole(CLIENT_ROLE, MANAGER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.POST)
-                                    .hasAnyRole(MANAGER_ROLE, ADMIN_ROLE)
+                                .hasAnyRole(MANAGER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.PUT)
-                                    .hasAnyRole(MANAGER_ROLE, ADMIN_ROLE)
+                                .hasAnyRole(MANAGER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.DELETE).hasRole(ADMIN_ROLE)
                                 .anyRequest().authenticated()
                 )
